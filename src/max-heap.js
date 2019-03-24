@@ -1,49 +1,69 @@
-const Node = require('./node');
+const Node = require("./node");
 
 class MaxHeap {
-	constructor() {
-		
-	}
+  constructor() {
+    this.root = null;
+    this.parentNodes = [];
+    this.sizeNumber = 0;
+  }
 
-	push(data, priority) {
-		
-	}
+  push(data, priority) {
+    const node = new Node(data, priority);
+    this.insertNode(node);
+    this.shiftNodeUp(node);
+    this.sizeNumber++;
+  }
 
-	pop() {
-		
-	}
+  pop() {
+    if (!this.root) {
+      return false;
+    }
+  }
 
-	detachRoot() {
-		
-	}
+  detachRoot() {
+    let position = this.parentNodes.indexOf(this.root);
+    if (position !== -1) this.parentNodes.splice(position, 1);
+    const detachRoot = this.root;
+    this.root = null;
+    return detachRoot;
+  }
 
-	restoreRootFromLastInsertedNode(detached) {
-		
-	}
+  restoreRootFromLastInsertedNode(detached) {}
 
-	size() {
-		
-	}
+  size() {
+    return this.sizeNumber;
+  }
 
-	isEmpty() {
-		
-	}
+  isEmpty() {
+    if (this.root === null) {
+      return true;
+    }
 
-	clear() {
-		
-	}
+    return false;
+  }
 
-	insertNode(node) {
-		
-	}
+  clear() {
+    this.root = null;
+    this.parentNodes = [];
+    this.sizeNumber = 0;
+  }
 
-	shiftNodeUp(node) {
-		
-	}
+  insertNode(node) {
+    this.parentNodes.push(node);
+    if (this.root == null) {
+      this.root = node;
+    } else {
+      let firstParent = this.parentNodes[0];
+      firstParent.appendChild(node);
+      if (firstParent.right !== null) {
+        this.parentNodes.shift();
+      }
+    }
+  }
 
-	shiftNodeDown(node) {
-		
-	}
+  shiftNodeUp(node) {}
+
+  shiftNodeDown(node) {}
 }
 
 module.exports = MaxHeap;
